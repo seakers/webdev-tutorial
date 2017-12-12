@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>EPIC images - Nice pictures of Earth</title>
+    <link rel="stylesheet" type="text/css" href="static/css/app.css">
+</head>
+<body>
+<div class="container" >
+    <h1>EPIC Images</h1>
+    {% for image in images %}
+        <div>
+            <img src="http://epic.gsfc.nasa.gov/archive/natural/{{ image.year }}/{{ image.month }}/{{ image.day }}/jpg/{{ image.url }}" />
+            <a data-lat="{{ image.centroid_lat }}" data-lon="{{ image.centroid_lon }}"><p>{{ image.title }}</p></a>
+        </div>
+    {% endfor %}
+    <p>© NASA EPIC Team</p>
+</div>
+<script type="text/javascript">
+var elts = document.getElementsByTagName('a');
+for (var i = 0; i < elts.length; ++i) {
+    elts[i].addEventListener("click", function(e) {
+        alert("The centroid is in: Lat " + e.currentTarget.dataset.lat + " Lon: " + e.currentTarget.dataset.lon)
+    }, false);
+}
+</script>
+</body>
+</html>
