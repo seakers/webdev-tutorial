@@ -2,6 +2,7 @@ import os
 import sqlite3
 import requests
 
+# Connect to a SQLite database in the app.db file
 conn = sqlite3.connect('app.db')
 
 c = conn.cursor()

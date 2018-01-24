@@ -33,11 +33,18 @@ def close_db(error):
         g.sqlite_db.close()
 
 @app.route('/')
-def show_entries():
+def hello_world():
+    return 'Hello, World!'
+
+@app.route('/epic')
+def epic():
+    # Connect to the database and obtain all the information from each image
     db = get_db()
     cur = db.execute('select title, pic_date, centroid_lat, centroid_lon, url from images')
     results = cur.fetchall()
     entries = []
+    # For each entry on the database we need to parse some information and save it in the correct fields so the
+    # templates are rendered correctly
     for result in results:
         entry = {}
         entry["title"] = result["title"]
@@ -49,6 +56,7 @@ def show_entries():
         entry["centroid_lon"] = result["centroid_lon"]
         entry["url"] = result["url"]
         entries.append(entry)
+    # Render the template by sending all the data we just parsed
     return render_template('epic.html', images=entries)
 
 if __name__ == "__main__":
